@@ -1,6 +1,7 @@
 import dash
 import fonctions as cm
 from dash import html
+import os
 
 # =============================================================#
 # ===================== INITIALISATIONS ====================== #
@@ -56,5 +57,9 @@ app.layout = html.Div(children=[
 # ======================= APP STARTUP ======================== #
 # =============================================================#
 
-if __name__ == "__main__":
-    app.run_server(debug=False)
+# if __name__ == "__main__":
+#    app.run_server(debug=False)
+
+port = int(os.environ.get("PORT", 10000))
+if __name__ == '__main__':
+    app.run_server(debug=True, host='0.0.0.0', port=port)
