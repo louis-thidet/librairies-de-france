@@ -1,5 +1,5 @@
 import dash
-import fonctions.fonctions as cm
+import fonctions as cm
 from dash import html
 
 # =============================================================#

@@ -11,7 +11,7 @@ import requests
 # =============================================================#
 
 def bookshop_locations():
-    data_path = Path("../data/librairies_francaises_2018.csv")
+    data_path = Path("data/librairies_francaises_2018.csv")
     # Si les données ne sont pas téléchargées
     if not data_path.is_file():
         url = "https://www.data.gouv.fr/fr/datasets/r/18ecebc7-febd-48ab-9f51-db4623617905"
