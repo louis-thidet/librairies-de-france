@@ -22,10 +22,10 @@ def bookshop_locations():
     # Charger les données dans un DataFrame
     df = pd.read_csv(data_path, encoding="UTF-8", on_bad_lines="skip", delimiter=";")
     # Convertir les coordonnées au format numérique
-    df['latitude'] = pd.to_numeric(df['latitude'], errors='coerce')
-    df['longitude'] = pd.to_numeric(df['longitude'], errors='coerce')
+    df["latitude"] = pd.to_numeric(df["latitude"], errors="coerce")
+    df["longitude"] = pd.to_numeric(df["longitude"], errors="coerce")
     # Supprimer les données dont les coordonnées n'ont pas pu être converties
-    df = df.dropna(subset=['latitude', 'longitude'])
+    df = df.dropna(subset=["latitude", "longitude"])
     return df
 
 
@@ -35,9 +35,9 @@ def bookshop_locations():
 
 def creer_carte(df):
     # Tuile personnalisée
-    tiles = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
-    attr = ('&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a '
-            'href="https://carto.com/attributions">CARTO</a>')
+    tiles = "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+    attr = ("&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a "
+            "href='https://carto.com/attributions'>CARTO</a>")
 
     # Création de la carte
     m = folium.Map(location=(46.5, 2.5),
@@ -56,7 +56,7 @@ def creer_carte(df):
     # Pour chaque librairie (chaque ligne de donnée)
     for idx, row in df.iterrows():
         # Texte de recherche pour Google Map
-        search_text = f"librairie {row['Designation']} {row['result_label']}".replace(' ', '+')
+        search_text = f"librairie {row['Designation']} {row['result_label']}".replace(" ", "+")
         # Création d'un lien pour rechercher la librairie sur Google Map
         google_maps_url = f"https://www.google.com/maps/search/{search_text}/@{row['latitude']},{row['longitude']}"
         # Création d'une fenêtre contextuelle
@@ -69,8 +69,8 @@ def creer_carte(df):
                     </style>
                 </head>
                 <body>
-                    <p><b>Nom :</b> {row['Designation']}</p>
-                    <p><b>Adresse :</b> {row['Adresse']}</p>
+                    <p><b>Nom :</b> {row["Designation"]}</p>
+                    <p><b>Adresse :</b> {row["Adresse"]}</p>
                     <p>Voir sur <a href="{google_maps_url}" target="_blank">Google Maps</a></p>
                 </body>
             </html>
@@ -81,9 +81,9 @@ def creer_carte(df):
 
         # Ajout du marqueur de la librairie avec la fenêtre contextuelle aux clusters de marqueurs
         folium.Marker(
-            location=[row['latitude'], row['longitude']],
+            location=[row["latitude"], row["longitude"]],
             popup=popup,
-            icon=folium.Icon(color='red', icon='glyphicon-book')
+            icon=folium.Icon(color="red", icon="glyphicon-book")
         ).add_to(marker_cluster),
 
     # Enregistrement de la carte : il faut l'enregistrer pour la lire et récupérer en tant que variable html
