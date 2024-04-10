@@ -4,4 +4,4 @@ folium
 pathlib
 pandas
 requests
-PIL
+pillow
